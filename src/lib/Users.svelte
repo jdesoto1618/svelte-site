@@ -37,8 +37,8 @@
 <div>
   <h1 class="user-heading">List of Users</h1>
   <div class="user-container">
-    {#each getUsers() as { name, image, email, id }, index (id)}
-      <User {name} {image} {email} {index} />
+    {#each getUsers() as user}
+      <User {user} />
     {:else}
       <p>No users found!</p>
     {/each}

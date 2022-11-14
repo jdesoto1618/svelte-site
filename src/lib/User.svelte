@@ -1,15 +1,12 @@
 <script>
-  export let image;
-  export let name;
-  export let email;
-  export let index;
+  export let user;
 </script>
 
 <div class="users-wrapper">
-  <img class="user-image" src={image} alt={image} />
+  <img class="user-image" src={user.image} alt={user.image} />
   <div class="user-card-copy-wrapper">
-    <p class="user-name">{name}</p>
-    <p class="user-email">{email}</p>
+    <p class="user-name">{user.name}</p>
+    <p class="user-email">{user.email}</p>
   </div>
 </div>
 
