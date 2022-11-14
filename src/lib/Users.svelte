@@ -1,6 +1,7 @@
 <script>
   import userAvatar from "../assets/user-image.png";
   import { each } from "svelte/internal";
+  import User from "./User.svelte";
   let users = [
     {
       id: 1,
@@ -37,11 +38,7 @@
   <h1 class="user-heading">List of Users</h1>
   <div class="user-container">
     {#each getUsers() as { name, image, email, id }, index (id)}
-      <div class="users-wrapper">
-        <img class="user-image" src={image} alt={image} />
-        <p class="user-name">{name}</p>
-        <p class="user-email">{email}</p>
-      </div>
+      <User {name} {image} {email} {index} />
     {:else}
       <p>No users found!</p>
     {/each}
@@ -59,14 +56,6 @@
     display: grid;
     grid-template-columns: 1fr;
     gap: 32px;
-  }
-
-  .user-image {
-    max-width: 125px;
-  }
-
-  .user-name {
-    font-weight: 700;
   }
 
   @media (min-width: 768px) {
