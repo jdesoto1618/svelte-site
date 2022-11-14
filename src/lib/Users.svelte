@@ -33,8 +33,15 @@
     },
   ];
 
-  const getUsers = () => {
-    return users;
+  let filteredUsers = users;
+
+  const filterUsers = (event) => {
+    if (event.target.value === "null") {
+      filteredUsers = users;
+      return false;
+    }
+    const userStatus = event.target.value === "true";
+    filteredUsers = users.filter((user) => user.active === userStatus);
   };
 </script>
 
@@ -43,15 +50,15 @@
 
   <div class="user-select-wrapper">
     <label for="user-type-select">User status:</label>
-    <select class="user-type-select" name="user-filter">
-      <option value="all">All</option>
-      <option value="Active">Active</option>
-      <option value="inactive">Inactive</option>
+    <select on:change={filterUsers} class="user-type-select" name="user-filter">
+      <option value={null}>All</option>
+      <option value={true}>Active</option>
+      <option value={false}>Inactive</option>
     </select>
   </div>
 
   <div class="user-container">
-    {#each getUsers() as user}
+    {#each filteredUsers as user}
       <User {user} />
     {:else}
       <p>No users found!</p>
