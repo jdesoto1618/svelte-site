@@ -34,14 +34,50 @@
 </script>
 
 <div>
-  <h1>List of Users</h1>
-  <div>
+  <h1 class="user-heading">List of Users</h1>
+  <div class="user-container">
     {#each getUsers() as { name, image, email, id }, index (id)}
-      <img src={image} alt={image} />
-      <p>{name}</p>
-      <p>{email}</p>
+      <div class="users-wrapper">
+        <img class="user-image" src={image} alt={image} />
+        <p class="user-name">{name}</p>
+        <p class="user-email">{email}</p>
+      </div>
     {:else}
       <p>No users found!</p>
     {/each}
   </div>
 </div>
+
+<style>
+  .user-heading {
+    text-align: center;
+    color: var(--dark-font-color);
+    margin-bottom: 4rem;
+  }
+
+  .user-container {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+
+  .user-image {
+    max-width: 125px;
+  }
+
+  .user-name {
+    font-weight: 700;
+  }
+
+  @media (min-width: 768px) {
+    .user-container {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (min-width: 992px) {
+    .user-container {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+</style>
