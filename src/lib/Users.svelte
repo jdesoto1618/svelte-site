@@ -2,6 +2,7 @@
   import userAvatar from "../assets/user-image.png";
   import { each } from "svelte/internal";
   import User from "./User.svelte";
+  import FilterUser from "./FilterUser.svelte";
   let users = [
     {
       id: 1,
@@ -35,12 +36,12 @@
 
   let filteredUsers = users;
 
-  const filterUsers = (event) => {
-    if (event.target.value === "null") {
+  const filterUsers = ({ detail }) => {
+    if (detail === "null") {
       filteredUsers = users;
       return false;
     }
-    const userStatus = event.target.value === "true";
+    const userStatus = detail === "true";
     filteredUsers = users.filter((user) => user.active === userStatus);
   };
 </script>
@@ -48,14 +49,7 @@
 <div>
   <h1 class="user-heading">List of Users</h1>
 
-  <div class="user-select-wrapper">
-    <label for="user-type-select">User status:</label>
-    <select on:change={filterUsers} class="user-type-select" name="user-filter">
-      <option value={null}>All</option>
-      <option value={true}>Active</option>
-      <option value={false}>Inactive</option>
-    </select>
-  </div>
+  <FilterUser on:filter={filterUsers} />
 
   <div class="user-container">
     {#each filteredUsers as user}
@@ -71,19 +65,6 @@
     text-align: center;
     color: var(--dark-font-color);
     margin-bottom: 4rem;
-  }
-
-  .user-select-wrapper {
-    display: flex;
-    align-items: center;
-    gap: 16px;
-    margin-bottom: 2rem;
-  }
-
-  .user-type-select {
-    border-radius: 5px;
-    border-color: lightsteelblue;
-    padding: 0.5rem;
   }
 
   .user-container {
