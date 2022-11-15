@@ -34,7 +34,7 @@
     },
   ];
 
-  let filteredUsers = users;
+  $: filteredUsers = users;
 
   const filterUsers = ({ detail }) => {
     if (detail === "null") {
