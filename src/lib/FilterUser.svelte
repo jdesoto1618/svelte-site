@@ -19,10 +19,9 @@
 <style>
   .user-select-wrapper {
     display: flex;
-    align-items: center;
     justify-content: space-between;
+    align-items: center;
     gap: 16px;
-    margin-bottom: 2rem;
   }
 
   .user-type-select {

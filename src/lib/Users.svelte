@@ -3,6 +3,7 @@
   import { each } from "svelte/internal";
   import User from "./User.svelte";
   import FilterUser from "./FilterUser.svelte";
+  import NewUser from "./NewUser.svelte";
   let users = [
     {
       id: 1,
@@ -53,7 +54,10 @@
 <div>
   <h1 class="user-heading">List of Users</h1>
 
-  <FilterUser on:filter={filterUsers} />
+  <div class="user-controls-wrapper">
+    <FilterUser on:filter={filterUsers} />
+    <NewUser />
+  </div>
 
   <div class="user-container">
     {#each filteredUsers as user}
@@ -71,6 +75,13 @@
     margin-bottom: 4rem;
   }
 
+  .user-controls-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    margin-bottom: 2rem;
+  }
+
   .user-container {
     display: grid;
     grid-template-columns: 1fr;
@@ -84,6 +95,11 @@
   }
 
   @media (min-width: 992px) {
+    .user-controls-wrapper {
+      flex-direction: row;
+      justify-content: space-between;
+    }
+
     .user-container {
       grid-template-columns: repeat(4, 1fr);
     }
