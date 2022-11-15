@@ -1,10 +1,81 @@
 <script>
   import { createEventDispatcher } from "svelte";
-
+  import AddUserModal from "./AddUserModal.svelte";
   const dispatch = createEventDispatcher();
+
+  let newUser = {};
+  let showModal = false;
+
+  const handleForm = () => {
+    dispatch("newUser", newUser);
+    showModal = false;
+  };
+
+  $: disableSubmitButton = !newUser.name || !newUser.email;
 </script>
 
-<button class="add-user-button">Add User</button>
+<button on:click={() => (showModal = true)} class="add-user-button"
+  >Add User</button
+>
+
+{#if showModal}
+  <AddUserModal
+    on:closeModal={() => (showModal = false)}
+    on:submit={handleForm}
+  >
+    <h2 class="modal-heading">Add new user</h2>
+
+    <div class="form-input-wrapper new-username">
+      <label for="username">Username</label>
+      <input
+        bind:value={newUser.name}
+        class="modal-input username"
+        type="text"
+        name="username"
+      />
+    </div>
+
+    <div class="form-input-wrapper new-email">
+      <label for="user-email">Email</label>
+      <input
+        bind:value={newUser.email}
+        class="modal-input email"
+        type="email"
+        name="user-email"
+      />
+    </div>
+
+    <div class="form-input-wrapper active-user">
+      <p>Active?</p>
+      <div class="active-user-wrapper">
+        <label for="active">Yes</label>
+        <input
+          bind:group={newUser.active}
+          value={true}
+          class="active-input active"
+          type="radio"
+          name="active"
+        />
+
+        <label for="inactive">No</label>
+        <input
+          bind:group={newUser.active}
+          value={false}
+          class="active-input inactive"
+          type="radio"
+          name="inactive"
+        />
+      </div>
+    </div>
+
+    <button
+      type="submit"
+      disabled={disableSubmitButton}
+      class="form-submit-button"
+      slot="right-button">Create User</button
+    >
+  </AddUserModal>
+{/if}
 
 <style>
   .add-user-button {
