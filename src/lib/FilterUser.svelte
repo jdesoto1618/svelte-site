@@ -20,6 +20,7 @@
   .user-select-wrapper {
     display: flex;
     align-items: center;
+    justify-content: space-between;
     gap: 16px;
     margin-bottom: 2rem;
   }
@@ -28,5 +29,11 @@
     border-radius: 5px;
     border-color: lightsteelblue;
     padding: 0.5rem;
+  }
+
+  @media (min-width: 992px) {
+    .user-select-wrapper {
+      justify-content: flex-start;
+    }
   }
 </style>

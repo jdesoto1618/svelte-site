@@ -44,6 +44,10 @@
     const userStatus = detail === "true";
     filteredUsers = users.filter((user) => user.active === userStatus);
   };
+
+  const removeUser = ({ detail }) => {
+    users = users.filter((user) => user.id !== detail);
+  };
 </script>
 
 <div>
@@ -53,7 +57,7 @@
 
   <div class="user-container">
     {#each filteredUsers as user}
-      <User {user} />
+      <User on:removeUser={removeUser} {user} />
     {:else}
       <p>No users found!</p>
     {/each}
