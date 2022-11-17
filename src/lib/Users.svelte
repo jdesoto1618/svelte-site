@@ -1,5 +1,8 @@
 <script>
   import { each } from "svelte/internal";
+  import { onMount } from "svelte";
+  import { cubicIn } from "svelte/easing";
+  import { tweened } from "svelte/motion";
   import User from "./User.svelte";
   import FilterUser from "./FilterUser.svelte";
   import NewUser from "./NewUser.svelte";
@@ -15,6 +18,15 @@
     const userStatus = detail === "true";
     filteredUsers = $users.filter((user) => user.active === userStatus);
   };
+
+  const progressBar = tweened(0, {
+    duration: 1000,
+    easing: cubicIn,
+  });
+
+  onMount(() => {
+    progressBar.set(filteredUsers.length);
+  });
 </script>
 
 <div>
@@ -24,6 +36,8 @@
     <FilterUser on:filter={filterUsers} />
     <NewUser on:newUser={addNewUser} />
   </div>
+
+  <progress class="progress-bar" max="10" min="0" value={$progressBar} />
 
   <div class="user-container">
     {#each filteredUsers as user}
@@ -52,6 +66,11 @@
     display: grid;
     grid-template-columns: 1fr;
     gap: 32px;
+  }
+
+  .progress-bar {
+    width: 100%;
+    margin-bottom: 2rem;
   }
 
   @media (min-width: 768px) {
