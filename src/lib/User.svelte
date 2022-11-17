@@ -1,5 +1,6 @@
 <script>
   import { createEventDispatcher, loop_guard } from "svelte/internal";
+  import { fade } from "svelte/transition";
 
   export let user;
 
@@ -9,7 +10,7 @@
   };
 </script>
 
-<div class="users-wrapper">
+<div class="users-wrapper" transition:fade>
   <div class="user-image-wrapper">
     <button on:click={removeUser} class="remove-user-button">x</button>
     <img class="user-image" src={user.image} alt={user.image} />
