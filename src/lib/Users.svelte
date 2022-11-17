@@ -49,6 +49,17 @@
   const removeUser = ({ detail }) => {
     users = users.filter((user) => user.id !== detail);
   };
+
+  const addNewUser = ({ detail }) => {
+    users = [
+      ...users,
+      {
+        id: users.length + 1,
+        image: users[0].image,
+        ...detail,
+      },
+    ];
+  };
 </script>
 
 <div>
@@ -56,7 +67,7 @@
 
   <div class="user-controls-wrapper">
     <FilterUser on:filter={filterUsers} />
-    <NewUser />
+    <NewUser on:newUser={addNewUser} />
   </div>
 
   <div class="user-container">
