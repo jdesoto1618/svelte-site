@@ -1,64 +1,19 @@
 <script>
-  import userAvatar from "../assets/user-image.png";
   import { each } from "svelte/internal";
   import User from "./User.svelte";
   import FilterUser from "./FilterUser.svelte";
   import NewUser from "./NewUser.svelte";
-  let users = [
-    {
-      id: 1,
-      image: userAvatar,
-      name: "John1",
-      email: "johnsemail1@email.com",
-      active: false,
-    },
-    {
-      id: 2,
-      image: userAvatar,
-      name: "John2",
-      email: "johnsemail2@email.com",
-      active: true,
-    },
-    {
-      id: 3,
-      image: userAvatar,
-      name: "John3",
-      email: "johnsemail3@email.com",
-      active: false,
-    },
-    {
-      id: 4,
-      image: userAvatar,
-      name: "John4",
-      email: "johnsemail4@email.com",
-      active: false,
-    },
-  ];
+  import { users, addNewUser, removeUser } from "../store";
 
-  $: filteredUsers = users;
+  $: filteredUsers = $users;
 
   const filterUsers = ({ detail }) => {
     if (detail === "null") {
-      filteredUsers = users;
+      filteredUsers = $users;
       return false;
     }
     const userStatus = detail === "true";
-    filteredUsers = users.filter((user) => user.active === userStatus);
-  };
-
-  const removeUser = ({ detail }) => {
-    users = users.filter((user) => user.id !== detail);
-  };
-
-  const addNewUser = ({ detail }) => {
-    users = [
-      {
-        id: users.length + 1,
-        image: users[0].image,
-        ...detail,
-      },
-      ...users,
-    ];
+    filteredUsers = $users.filter((user) => user.active === userStatus);
   };
 </script>
 
