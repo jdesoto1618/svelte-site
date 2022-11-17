@@ -1,5 +1,6 @@
 <script>
   import { createEventDispatcher } from "svelte";
+  export let show;
 
   const dispatch = createEventDispatcher();
 
@@ -12,7 +13,7 @@
   };
 </script>
 
-<div class="modal-wrapper">
+<div class="modal-wrapper" style:display={show ? " block" : "none"}>
   <dialog class="add-user-dialog">
     <form
       on:submit|preventDefault={formSubmit}
