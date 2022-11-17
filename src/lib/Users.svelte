@@ -52,12 +52,12 @@
 
   const addNewUser = ({ detail }) => {
     users = [
-      ...users,
       {
         id: users.length + 1,
         image: users[0].image,
         ...detail,
       },
+      ...users,
     ];
   };
 </script>
