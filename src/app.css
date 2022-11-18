@@ -2,6 +2,7 @@
   --white: #fff;
   --black: #000;
   --dark-font-color: #222;
+  --nav-links-color: #F8F8F8;
   font-family: Inter, Avenir, Helvetica, Arial, sans-serif;
   font-size: 16px;
   line-height: 24px;
@@ -30,10 +31,75 @@ a:hover {
 
 body {
   margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
   min-height: 100vh;
+  position: relative;
+}
+
+.site-header {
+  background: var(--dark-font-color);
+  padding: 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header-logo {
+  color: var(--nav-links-color);
+}
+
+.site-nav.mobile {
+  width: 1.75rem;
+}
+
+.mobile-menu-container {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  cursor: pointer;
+}
+
+.mobile-menu-bar {
+  background-color: var(--white);
+  width: 24px;
+  height: 3px;
+  border-radius: 100rem;
+  display: block;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+  transform-origin: left;
+}
+
+.mobile-menu-container.open .mobile-menu-bar {
+  width: 82%;
+}
+
+.mobile-menu-container.open .mobile-menu-bar.top {
+  transform: rotate(45deg);
+}
+
+.mobile-menu-container.open .mobile-menu-bar.middle {
+  transform: scaleX(0);
+  opacity: 0;
+}
+
+.mobile-menu-container.open .mobile-menu-bar.bottom {
+  transform: rotate(-45deg);
+}
+
+.site-nav.desktop {
+  display: none;
+}
+
+.site-nav-ul {
+  list-style: none;
+  display: flex;
+  gap: 24px;
+  margin: 0;
+  padding: 0;
+}
+
+.site-nav-link {
+  color: var(--nav-links-color);
+  transition: color 0.2s ease;
 }
 
 h1 {
@@ -42,17 +108,41 @@ h1 {
 }
 
 #app {
-  max-width: 1280px;
-  margin: 0 auto;
   padding: 2rem;
-  position: relative;
 }
 
+@media (min-width: 768px) {
+  .site-nav.mobile {
+    display: none;
+  }
+
+  .site-nav.desktop {
+    display: block;
+  }
+}
+
+@media (min-width: 992px) {
+  .site-header {
+    padding: 1.5rem 10rem;
+  }
+
+  #app {
+    max-width: 962px;
+    margin: 0 auto;
+    padding: 0;
+  }
+}
+
+@media (min-width: 1200px) {
+  #app {
+    max-width: 1170px;
+  }
+}
 
 @media (prefers-color-scheme: light) {
   :root {
     color: #213547;
-    background-color: #ffffff;
+    background-color: var(--white);
   }
   a:hover {
     color: #747bff;
